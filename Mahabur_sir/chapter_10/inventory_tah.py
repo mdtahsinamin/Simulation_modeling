@@ -10,7 +10,7 @@ lead_time_distribution = [1, 2, 3, 4, 5]
 # Example lead time distribution
 
 
-def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
+def simulate_inventory_system(order_quantity, reorder_point, num_periods=15):
     total_cost = 0
     total_orders_placed = 0
     total_ordering_cost = 0
@@ -19,26 +19,28 @@ def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
     inventory_level = 8
 
     for period in range(num_periods):
-        if period == 0 or inventory_level <= reorder_point:
+        if inventory_level <= reorder_point:
             order = order_quantity
             total_orders_placed += 1
             total_ordering_cost += order_cost
+            inventory_level += order
         else:
             order = 0
 
         demand = random.choice(demand_distribution)
         lead_time = random.choice(lead_time_distribution)
 
-        if period >= lead_time:
+        if inventory_level >= demand:
             inventory_level -= demand
 
-        inventory_level += order
+
+       # inventory_level += order
 
         if inventory_level <=3:
             holding_penalty_cost = abs(inventory_level) * holding_cost
-            stockout_penalty_cost = abs(
-                inventory_level) * holding_cost  # Assuming stockout penalty is the same as holding cost
-            total_cost += order_cost + holding_penalty_cost + stockout_penalty_cost
+            #stockout_penalty_cost = abs(inventory_level) * holding_cost  # Assuming stockout penalty is the same as holding cost
+            total_cost += order_cost + holding_penalty_cost
+
             total_orders_lost += 1
         else:
             holding_penalty_cost = inventory_level * holding_cost
