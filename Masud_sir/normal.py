@@ -8,7 +8,6 @@ mean = 100
 standard_deviation = 20
 mean2 = 80
 standard_deviation2 = 20
-
 random_sample = np.random.normal(mean2, standard_deviation2, sample_size)
 
 # Plot the histogram of the blood pressure distribution

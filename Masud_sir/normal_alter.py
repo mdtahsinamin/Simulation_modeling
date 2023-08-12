@@ -13,8 +13,8 @@ random_sample = np.random.normal(mean, standard_deviation, sample_size)
 
 
 # Plot the unimodal density curves
-
-x = np.linspace(min(random_sample), max(random_sample), 200)
+# numpy.linspace(start, stop, num)
+x = np.linspace(min(random_sample), max(random_sample), 200) # create an array of evenly spaced numbers within a specified interval.
 unimodal_curve = (1 / (standard_deviation * np.sqrt(2 * np.pi))) * np.exp(-((x - mean) ** 2) / (2 * standard_deviation ** 2))
 
 
@@ -38,7 +38,6 @@ plt.show()
 
 # Create histograms for comparison
 plt.figure(figsize=(10, 6))
-
 sns.histplot(random_sample, kde=True, label="Diastolic Blood Pressure")
 plt.title("Histograms of Normal Distributions")
 plt.xlabel("Value")

@@ -7,7 +7,7 @@ lambda_10 = 10  # Calls per hour for simulation 1
 lambda_15 = 15  # Calls per hour for simulation 2
 
 k_values = np.arange(0, 11)  # Number of calls from 0 to 10
-k_values1 = np.arange(0, 16)
+k_values1 = np.arange(0, 16) # Number of calls from 0 to 15
 
 # Calculate PMF using Poisson distribution
 pmf_5 = poisson.pmf(k_values, 5)
@@ -47,7 +47,6 @@ plt.show()
 
 
 '''
-
 def poisson_pmf(x, lambd):
     return (math.exp(-lambd) * (lambd**x)) / math.factorial(x)
 '''

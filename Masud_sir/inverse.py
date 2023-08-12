@@ -23,7 +23,7 @@ plt.legend()
 
 # Calculate theoretical PDF for comparison
 theoretical_x = np.linspace(0, max(generated_variates), 1000)
-theoretical_pdf = pdf = (1 / mean) * np.exp(-theoretical_x  / mean)
+theoretical_pdf = pdf = (1 / mean) * np.exp(-theoretical_x / mean)
 plt.plot(theoretical_x, theoretical_pdf, color='red', label='Theoretical PDF')
 plt.legend()
 
