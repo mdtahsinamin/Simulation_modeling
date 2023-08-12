@@ -39,6 +39,7 @@ def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
                 lead_time = random.choice(lead_time_distribution)
                 lead_ture =False
             inventory_level = inventory_level
+            total_sales_lost+=demand
             total_holding_cost += inventory_level * holding_cost
 
             if (num_periods - period) == lead_time:
@@ -78,4 +79,4 @@ print(f"Minimum Total Cost: {min_total_cost:.2f}")
 print(f"Number of Orders Placed: {best_results['total_orders_placed']}")
 print(f"Total Ordering Cost: {best_results['total_ordering_cost']:.2f}")
 print(f"Total Holding Cost: {best_results['total_holding_cost']:.2f}")
-#print(f"Total Sales Lost: {best_results['total_sales_lost']}")
+print(f"Total Sales Lost: {best_results['total_sales_lost']} unit")
