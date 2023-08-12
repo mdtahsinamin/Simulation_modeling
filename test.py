@@ -7,8 +7,10 @@ initial_inventory_level = 8
 demand_distribution = [0, 1, 2, 3, 4]  # Example demand distribution
 lead_time_distribution = [1, 2, 3, 4, 5]  # Example lead time distribution
 
-
+lead_ture = True
+lead_time = 0
 def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
+    global lead_ture, lead_time
     total_orders_placed = 0
     total_ordering_cost = 0
     total_holding_cost = 0
@@ -33,13 +35,15 @@ def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
             inventory_level -= demand
             total_holding_cost += inventory_level * holding_cost
         elif demand > inventory_level:
-            lead_time = random.choice(lead_time_distribution)
+            if lead_ture == True:
+                lead_time = random.choice(lead_time_distribution)
+                lead_ture =False
             inventory_level = inventory_level
             total_holding_cost += inventory_level * holding_cost
 
-            # Check if stockout occurred during lead time
             if (num_periods - period) == lead_time:
                 inventory_level += 5
+                lead_ture = True
 
         # Calculate costs
         total_cost += order_cost + total_holding_cost
