@@ -61,3 +61,8 @@ plt.xlabel('Value')
 plt.ylabel('Probability Density')
 plt.legend()
 plt.show()
+
+'''
+a random variate is a particular outcome of a random variable. It is a value that is generated randomly from a probability distribution.
+A random variable is a function (or rule) that assigns a real number (any number greater than 2` and less than `) to each point in the sample space S
+'''
