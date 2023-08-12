@@ -1,31 +1,44 @@
-import random
-import simpy
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-class CounterServiceSimulation:
-    def __init__(self, env, num_counters, num_customers):
-        self.env = env
-        self.counter = simpy.Resource(env, capacity=num_counters)
-        self.num_customers = num_customers
+# Parameters for the normal distributions
+sample_size = 200
+mean_unimodal = 100
+std_dev_unimodal = 20
+mean_multimodal1 = 80
+mean_multimodal2 = 120
+std_dev_multimodal = 20
 
-    def customer(self, name):
-        print(f"{name} arrived at time {self.env.now}")
-        with self.counter.request() as request:
-            yield request
-            print(f"{name} starts being served at time {self.env.now}")
-            yield self.env.timeout(random.uniform(1, 3))
-            print(f"{name} finished being served at time {self.env.now}")
+# Generate random samples from normal distributions
+sample_unimodal = np.random.normal(mean_unimodal, std_dev_unimodal, sample_size)
+sample_multimodal = np.concatenate([
+    np.random.normal(mean_multimodal1, std_dev_multimodal, sample_size // 2),
+    np.random.normal(100, std_dev_multimodal, sample_size // 2)
+])
 
-    def run(self):
-        for i in range(self.num_customers):
-            self.env.process(self.customer(f"Customer {i+1}"))
+# Create density plots (unimodal and multimodal)
+plt.figure(figsize=(10, 6))
 
-def main():
-    num_counters = 2
-    num_customers = 5
-    env = simpy.Environment()
+sns.kdeplot(sample_unimodal, label="Unimodal (Mean 100, Std Dev 20)")
+sns.kdeplot(sample_multimodal, label="Multimodal (Means 80 and 120, Std Dev 20)")
 
-    simulation = CounterServiceSimulation(env, num_counters, num_customers)
-    simulation.run()
+plt.title("Density Curves of Normal Distributions")
+plt.xlabel("Value")
+plt.ylabel("Density")
+plt.legend()
+plt.show()
 
-if __name__ == "__main__":
-    main()
+# Generate random samples for diastolic blood pressure distribution
+diastolic_blood_pressure = np.random.normal(80, 20, sample_size)
+
+# Create histogram of diastolic blood pressure distribution
+plt.figure(figsize=(10, 6))
+
+sns.histplot(diastolic_blood_pressure, bins=20, kde=True, label="Diastolic Blood Pressure")
+
+plt.title("Histogram of Diastolic Blood Pressure Distribution")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.legend()
+plt.show()
