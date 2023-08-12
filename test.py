@@ -38,7 +38,7 @@ def simulate_inventory_system(order_quantity, reorder_point, num_periods=12):
             total_holding_cost += inventory_level * holding_cost
 
             # Check if stockout occurred during lead time
-            if period < lead_time:
+            if (num_periods - period) == lead_time:
                 inventory_level += 5
 
         # Calculate costs
